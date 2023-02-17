@@ -1,4 +1,18 @@
-﻿@model Project
+﻿@model IEnumerable<Project>
 
 <h1>Project view</h1>
 
+<div class="row">
+    <div class="col-4">Name</div>
+    <div class="col-4">Description</div>
+    <div class="col-4">Github Link</div>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-4">@item.Name</div>
+        <div class="col-4">@item.Description</div>
+        <div class="col-4">@item.GithubLink</div>
+    </div>
+}

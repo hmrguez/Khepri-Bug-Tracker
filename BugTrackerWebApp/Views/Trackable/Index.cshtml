@@ -1,3 +1,24 @@
-﻿@model Trackable
+﻿@model IEnumerable<Trackable>
 
 <h1>Trackable view</h1>
+
+<div class="row">
+    <div class="col-2">Name</div>
+    <div class="col-2">Type</div>
+    <div class="col-2">Date</div>
+    <div class="col-2">Status</div>
+    <div class="col-2">Project</div>
+    <div class="col-2">Lead Dev</div>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-2">@item.Name</div>
+        <div class="col-2">@item.TrackType</div>
+        <div class="col-2">@item.DateCreated</div>
+        <div class="col-2">@item.Status</div>
+        <div class="col-2">@item.Project.Name</div>
+        <div class="col-2">Lead Dev</div>
+    </div>
+}

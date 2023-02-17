@@ -1,11 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BugTrackerWebApp.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BugTrackerWebApp.Controllers;
 
 public class TrackableController : Controller
 {
-    public IActionResult Index()
+    private readonly ITrackableRepository _trackableRepository;
+
+    public TrackableController(ITrackableRepository trackableRepository)
     {
-        return View();
+        _trackableRepository = trackableRepository;
+    }
+    
+    public async Task<IActionResult> Index()
+    {
+        var trackables = await _trackableRepository.GetAll();
+        return View(trackables);
     }
 }
