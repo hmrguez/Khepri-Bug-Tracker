@@ -41,6 +41,36 @@ namespace BugTrackerWebApp.Migrations
                     b.ToTable("AppUser");
                 });
 
+            modelBuilder.Entity("BugTrackerWebApp.Models.Project", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GithubLink")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Projects");
+                });
+
             modelBuilder.Entity("BugTrackerWebApp.Models.Trackable", b =>
                 {
                     b.Property<int>("Id")
@@ -61,6 +91,9 @@ namespace BugTrackerWebApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -71,7 +104,16 @@ namespace BugTrackerWebApp.Migrations
 
                     b.HasIndex("AppUserId");
 
+                    b.HasIndex("ProjectId");
+
                     b.ToTable("Trackables");
+                });
+
+            modelBuilder.Entity("BugTrackerWebApp.Models.Project", b =>
+                {
+                    b.HasOne("BugTrackerWebApp.Models.AppUser", null)
+                        .WithMany("Projects")
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("BugTrackerWebApp.Models.Trackable", b =>
@@ -80,11 +122,21 @@ namespace BugTrackerWebApp.Migrations
                         .WithMany("Trackables")
                         .HasForeignKey("AppUserId");
 
+                    b.HasOne("BugTrackerWebApp.Models.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AppUser");
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("BugTrackerWebApp.Models.AppUser", b =>
                 {
+                    b.Navigation("Projects");
+
                     b.Navigation("Trackables");
                 });
 #pragma warning restore 612, 618

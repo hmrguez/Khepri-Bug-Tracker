@@ -13,6 +13,17 @@ public class Seed
 
             context.Database.EnsureCreated();
 
+            if (!context.Projects.Any())
+            {
+                context.Projects.Add(new Project()
+                {
+                    Name = "Bug Tracker",
+                    Description = "A simple bug or feature tracker using ASP.NET core MVC",
+                    GithubLink = "https://github.com/vekt0R-HUB/BugTracker"
+                });
+                context.SaveChanges();
+            }
+            
             if (!context.Trackables.Any())
             {
                 context.Trackables.AddRange(new List<Trackable>
@@ -23,7 +34,8 @@ public class Seed
                         Description = "Create AppUser and TrackableModel",
                         Status = Status.Completed,
                         TrackType = TrackType.Feature,
-                        DateCreated = DateTime.Now
+                        DateCreated = DateTime.Now,
+                        ProjectId = 1
                     },
                     new ()
                     {
@@ -31,7 +43,8 @@ public class Seed
                         Description = "Implement Db using MS SQL Server",
                         Status = Status.Opened,
                         TrackType = TrackType.Feature,
-                        DateCreated = DateTime.Now
+                        DateCreated = DateTime.Now,
+                        ProjectId = 1
                     },
                     new ()
                     {
@@ -39,7 +52,8 @@ public class Seed
                         Description = "Implement first view, preferably trackable list",
                         Status = Status.Opened,
                         TrackType = TrackType.Feature,
-                        DateCreated = DateTime.Now
+                        DateCreated = DateTime.Now,
+                        ProjectId = 1
                     }
                 });
                 context.SaveChanges();

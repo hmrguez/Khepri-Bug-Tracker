@@ -11,4 +11,5 @@ public class ApplicationDbContext : DbContext
     }
     
     public DbSet<Trackable> Trackables { get; set; }
+    public DbSet<Project> Projects { get; set; }
 }
