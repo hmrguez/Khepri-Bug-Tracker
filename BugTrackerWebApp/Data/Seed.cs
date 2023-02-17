@@ -59,38 +59,6 @@ public class Seed
                 context.SaveChanges();
             }
         }
-
-
-        // using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
-        // {
-        //     var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-        //     context.Database.EnsureCreated();
-        //
-        //     if (!context.Trackables.Any())
-        //     {
-        //         context.Trackables.AddRange(new List<Trackable>()
-        //         {
-        //             new Trackable()
-        //             {
-        //                 Name = "Implement Db",
-        //                 Description = "Implement Db using MS SQL Server",
-        //                 Status = Status.Opened,
-        //                 TrackType = TrackType.Feature,
-        //                 DateCreated = DateTime.Now
-        //             },
-        //             new Trackable()
-        //             {
-        //                 Name = "Implement first view",
-        //                 Description = "Implement first view, preferably trackable list",
-        //                 Status = Status.Opened,
-        //                 TrackType = TrackType.Feature,
-        //                 DateCreated = DateTime.Now
-        //             }
-        //         });
-        //         context.SaveChanges();
-        //     }
-        //     
-        // }
     }
 }
 
