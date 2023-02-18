@@ -20,10 +20,10 @@
         <div class="col-2">@item.Status</div>
         <div class="col-2">@item.Project.Name</div>
         <div class="col-2">Lead Dev</div>
-        <div class="col-2"><button type="button" class="btn btn-danger"><span class="bi-trash"></span>&nbsp;Delete</button></div>
+        <div class="col-2"><a type="button" class="btn btn-danger" asp-controller="Trackable" asp-action="Delete" asp-route-id="@item.Id"><span class="bi-trash"></span>&nbsp;Delete</a></div>
     </div>
 }
 
 <br/>
 
-<button type="button" class="btn btn-primary btn-sm"><span class="bi-plus-square-fill"></span>&nbsp;Add</button>
+<a type="button" class="btn btn-primary btn-sm" asp-controller="Trackable" asp-action="Create"><span class="bi-plus-square-fill"></span>&nbsp;Add</a>

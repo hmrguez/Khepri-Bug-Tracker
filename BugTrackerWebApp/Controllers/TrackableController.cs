@@ -3,6 +3,7 @@ using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 using BugTrackerWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
 namespace BugTrackerWebApp.Controllers;
 
@@ -57,5 +58,21 @@ public class TrackableController : Controller
             ModelState.AddModelError("","Failed to create");
             return View(trackableVm);
         }
+    }
+
+    public async Task<IActionResult> Delete(int id)
+    {
+        var track = await _trackableRepository.GetById(id);
+        if (track == null) return View("Error");
+        return View(track);
+    }
+    
+    [HttpPost, ActionName("Delete")]
+    public async Task<IActionResult> DeleteTrack(int id)
+    {
+        var track = await _trackableRepository.GetById(id);
+        if (track == null) return View("Error");
+        _trackableRepository.Delete(track);
+        return RedirectToAction("Index");
     }
 }
