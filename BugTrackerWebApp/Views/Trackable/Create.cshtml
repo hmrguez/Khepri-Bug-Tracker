@@ -1,0 +1,29 @@
+﻿@using BugTrackerWebApp.Data.Enum
+@model BugTrackerWebApp.ViewModels.TrackableViewModel
+
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Name">Title</label>
+        <input asp-for="Name" class="form-control" placeholder="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" class="form-control" placeholder="Description">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProjectName">Project</label>
+        <input asp-for="ProjectName" class="form-control" placeholder="Project">
+        <span asp-validation-for="ProjectName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+            <label asp-for="TrackType">Category</label>
+            <select asp-for="TrackType" asp-items="@Html.GetEnumSelectList<TrackType>()" class="form-control">
+                <option>--Select--</option>
+            </select>
+            <span asp-validation-for="TrackType" class="text-danger"></span>
+        </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

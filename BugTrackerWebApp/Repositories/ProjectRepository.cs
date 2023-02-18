@@ -24,6 +24,11 @@ public class ProjectRepository : IProjectRepository
         return await _context.Projects.FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<Project> GetByName(string name)
+    {
+        return await _context.Projects.FirstOrDefaultAsync(x => x.Name == name);
+    }
+
     public bool Add(Project club)
     {
         _context.Add(club);
