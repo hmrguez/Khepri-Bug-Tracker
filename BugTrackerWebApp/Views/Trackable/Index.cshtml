@@ -21,6 +21,7 @@
         <div class="col-2">@item.Project.Name</div>
         <div class="col-2">Lead Dev</div>
         <div class="col-2"><a type="button" class="btn btn-danger" asp-controller="Trackable" asp-action="Delete" asp-route-id="@item.Id"><span class="bi-trash"></span>&nbsp;Delete</a></div>
+        <div class="col-2"><a type="button" class="btn btn-secondary" asp-controller="Trackable" asp-action="Detail" asp-route-id="@item.Id"><span class="bi bi-arrow-up-right-square"></span>&nbsp;Detail</a></div>
     </div>
 }
 

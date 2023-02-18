@@ -23,6 +23,11 @@ public class TrackableRepository : ITrackableRepository
     {
         return await _context.Trackables.Include(x=>x.Project).FirstOrDefaultAsync(x => x.Id == id);
     }
+    
+    public async Task<Trackable> GetByIdNoTracking(int id)
+    {
+        return await _context.Trackables.Include(x=>x.Project).AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+    }
 
     public bool Add(Trackable club)
     {
@@ -32,7 +37,8 @@ public class TrackableRepository : ITrackableRepository
 
     public bool Update(Trackable club)
     {
-        throw new NotImplementedException();
+        _context.Update(club);
+        return Save();
     }
 
     public bool Delete(Trackable club)

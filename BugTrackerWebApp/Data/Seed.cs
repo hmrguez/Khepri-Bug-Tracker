@@ -32,7 +32,7 @@ public class Seed
                     {
                         Name = "Create models",
                         Description = "Create AppUser and TrackableModel",
-                        Status = Status.Completed,
+                        Status = Status.Opened,
                         TrackType = TrackType.Feature,
                         DateCreated = DateTime.Now,
                         ProjectId = 1

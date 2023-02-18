@@ -4,5 +4,4 @@ public enum Status
 {
     Opened,
     Closed,
-    Completed
 }

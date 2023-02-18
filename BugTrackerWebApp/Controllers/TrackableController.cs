@@ -75,4 +75,53 @@ public class TrackableController : Controller
         _trackableRepository.Delete(track);
         return RedirectToAction("Index");
     }
+
+    public async Task<IActionResult> Edit(int id)
+    {
+        var trackable = await _trackableRepository.GetById(id);
+        if (trackable == null) return View("Error");
+        var trackVm = new EditTrackableViewModel()
+        {
+            Name = trackable.Name,
+            Description = trackable.Description,
+            ProjectName = trackable.Project.Name,
+            TrackType = trackable.TrackType,
+            Status = trackable.Status
+        };
+        return View(trackVm);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(int id, EditTrackableViewModel editTrackableViewModel)
+    {
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError("","Failed to edit Task");
+            return View("Edit", editTrackableViewModel);
+        }
+
+        var track = await _trackableRepository.GetByIdNoTracking(id);
+        if (track != null)
+        {
+            var project = await _projectRepository.GetByName(editTrackableViewModel.ProjectName);
+            var trackable = new Trackable()
+            {
+                Id = id,
+                Name = editTrackableViewModel.Name,
+                Description = editTrackableViewModel.Description,
+                ProjectId = project.Id,
+                Project = project,
+                Status = editTrackableViewModel.Status,
+                TrackType = editTrackableViewModel.TrackType,
+                DateCreated = track.DateCreated
+            };
+
+            _trackableRepository.Update(trackable);
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            return View(editTrackableViewModel);
+        }
+    }
 }
