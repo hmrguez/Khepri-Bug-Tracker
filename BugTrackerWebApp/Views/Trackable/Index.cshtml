@@ -1,20 +1,21 @@
 ﻿@model IEnumerable<Trackable>
 
 @{
-    int count = 1;
+    var count = 1;
 }
 
 <table class="table">
     <thead>
-        <tr>
-            <th class="text-center">#</th>
-            <th>Name</th>
-            <th>Project</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Lead dev</th>
-            <th class="text-right">Actions</th>
-        </tr>
+    <tr>
+        <th class="text-center">#</th>
+        <th>Name</th>
+        <th>Project</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Lead dev</th>
+        <th class="text-right">Actions</th>
+        <th>Quick Check</th>
+    </tr>
     </thead>
     <tbody>
     @foreach (var item in Model)
@@ -30,11 +31,16 @@
                 <a type="button" rel="tooltip" class="btn btn-info" asp-controller="Trackable" asp-action="Detail" asp-route-id="@item.Id">
                     <i class="material-icons">info</i>
                 </a>
-                <a type="button" rel="tooltip" class="btn btn-success" asp-controller="Trackable" asp-action="Edit" asp-route-id="@item.Id">
+                <a type="button" rel="tooltip" class="btn btn-warning" asp-controller="Trackable" asp-action="Edit" asp-route-id="@item.Id">
                     <i class="material-icons">edit</i>
                 </a>
                 <a type="button" rel="tooltip" class="btn btn-danger" asp-controller="Trackable" asp-action="Delete" asp-route-id="@item.Id">
                     <i class="material-icons">delete</i>
+                </a>
+            </td>
+            <td>
+                <a type="button" rel="tooltip" class="btn btn-success" asp-controller="Trackable" asp-action="QuickCheck" asp-route-id="@item.Id">
+                    <i class="material-icons">check</i>
                 </a>
             </td>
         </tr>
@@ -43,26 +49,6 @@
 </table>
 
 <a type="button" class="btn btn-primary btn-sm" asp-controller="Trackable" asp-action="Create"><span class="bi-plus-square-fill"></span>&nbsp;Add</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @* *@

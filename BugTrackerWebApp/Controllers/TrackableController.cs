@@ -124,4 +124,12 @@ public class TrackableController : Controller
             return View(editTrackableViewModel);
         }
     }
+
+    public async Task<IActionResult> QuickCheck(int id)
+    {
+        var trackable = await _trackableRepository.GetById(id);
+        trackable.Status = Status.Completed;
+        _trackableRepository.Update(trackable);
+        return RedirectToAction("Index");
+    }
 }
