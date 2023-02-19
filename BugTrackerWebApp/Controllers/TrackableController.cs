@@ -63,7 +63,7 @@ public class TrackableController : Controller
     public async Task<IActionResult> Delete(int id)
     {
         var track = await _trackableRepository.GetById(id);
-        if (track == null) return View("Error");
+        if (track == null) return NotFound();
         return View(track);
     }
     

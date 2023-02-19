@@ -14,5 +14,8 @@
         <div class="col-4">@item.Name</div>
         <div class="col-4">@item.Description</div>
         <div class="col-4">@item.GithubLink</div>
+        <div class="col-2"><a type="button" class="btn btn-danger" asp-controller="Project" asp-action="Delete" asp-route-id="@item.Id"><span class="bi-trash"></span>&nbsp;Delete</a></div>
     </div>
 }
+
+<a type="button" class="btn btn-primary btn-sm" asp-controller="Project" asp-action="Create"><span class="bi-plus-square-fill"></span>&nbsp;Add</a>
