@@ -1,9 +1,58 @@
 ﻿@model Trackable
 
-<h1>@Model.Name</h1>
-<h3>@Model.Description</h3>
-<h3>@Model.Project.Name</h3>
-<h3>@Model.Status</h3>
-<h3>@Model.TrackType</h3>
-
-<a type="button" class="btn btn-primary btn-sm" asp-controller="Trackable" asp-action="Edit" asp-route-id="@Model.Id"><span class="bi bi-bag-x"></span>&nbsp;Edit</a>
+<div class="container">
+    <div class="team-single">
+        <div class="row">
+            <div class="col-lg-8 col-md-7">
+                <div class="team-single-text padding-50px-left sm-no-padding-left">
+                    <h4 class="font-size38 sm-font-size32 xs-font-size30">@Model.Name</h4>
+                    <p class="no-margin-bottom">@Model.Description</p>
+                    <div class="contact-info-section margin-40px-tb">
+                        <ul class="list-style9 no-margin">
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-1 col-1">
+                                        <strong class="margin-10px-left text-orange">Status:</strong>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p>@Model.Status</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-1 col-1">
+                                        <strong class="margin-10px-left text-yellow">Type:</strong>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p>@Model.TrackType</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-1 col-1">
+                                        <strong class="margin-10px-left text-yellow">Project:</strong>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p>@Model.Project.Name</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-2 col-2">
+                                        <strong class="margin-10px-left text-yellow">Lead Dev:</strong>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p>@Model.AppUser?.Name</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

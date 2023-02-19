@@ -1,21 +1,35 @@
 ﻿@model IEnumerable<Project>
 
-<h1>Project view</h1>
-
-<div class="row">
-    <div class="col-4">Name</div>
-    <div class="col-4">Description</div>
-    <div class="col-4">Github Link</div>
-</div>
-
-@foreach (var item in Model)
-{
-    <div class="row">
-        <div class="col-4">@item.Name</div>
-        <div class="col-4">@item.Description</div>
-        <div class="col-4">@item.GithubLink</div>
-        <div class="col-2"><a type="button" class="btn btn-danger" asp-controller="Project" asp-action="Delete" asp-route-id="@item.Id"><span class="bi-trash"></span>&nbsp;Delete</a></div>
-    </div>
+@{
+    var count = 1;
 }
+
+<table class="table">
+    <thead>
+    <tr>
+        <th class="text-center">#</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Github link</th>
+        <th class="text-right">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center">@(count++)</td>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>@item.GithubLink</td>
+            <td class="td-actions text-right">
+                <a type="button" rel="tooltip" class="btn btn-danger" asp-controller="Project" asp-action="Delete" asp-route-id="@item.Id">
+                    <i class="material-icons">delete</i>
+                </a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
 
 <a type="button" class="btn btn-primary btn-sm" asp-controller="Project" asp-action="Create"><span class="bi-plus-square-fill"></span>&nbsp;Add</a>
