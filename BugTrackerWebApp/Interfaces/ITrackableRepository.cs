@@ -7,6 +7,7 @@ public interface ITrackableRepository
     Task<IEnumerable<Trackable>> GetAll();
     Task<Trackable> GetById(int id);
     Task<Trackable> GetByIdNoTracking(int id);
+    Task<IEnumerable<Trackable>> GetByProjectName(string projectName);
     bool Add(Trackable club);
     bool Update(Trackable club);
     bool Delete(Trackable club);

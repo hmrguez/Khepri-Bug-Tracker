@@ -7,10 +7,12 @@ namespace BugTrackerWebApp.Controllers;
 public class ProjectController : Controller
 {
     private readonly IProjectRepository _projectRepository;
+    private readonly ITrackableRepository _trackableRepository;
 
-    public ProjectController(IProjectRepository projectRepository)
+    public ProjectController(IProjectRepository projectRepository, ITrackableRepository trackableRepository)
     {
         _projectRepository = projectRepository;
+        _trackableRepository = trackableRepository;
     }
     
     public async Task<IActionResult> Index()
@@ -18,7 +20,13 @@ public class ProjectController : Controller
         var projects = await _projectRepository.GetAll();
         return View(projects);
     }
-    
+
+    public async Task<IActionResult> IndexForTrack()
+    {
+        var projects = await _projectRepository.GetAll();
+        return View(projects);
+    }
+
     //Create controller just like the trackable one
     public async Task<IActionResult> Create()
     {
@@ -59,6 +67,13 @@ public class ProjectController : Controller
         {
             return NotFound();
         }
+
+        var tracksForProject = await _trackableRepository.GetByProjectName(project.Name);
+        if (tracksForProject.Any())
+        {
+            return RedirectToAction("Index");
+        }
+        
         _projectRepository.Delete(project);
         return RedirectToAction("Index");
     }

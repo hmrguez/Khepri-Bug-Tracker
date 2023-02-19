@@ -23,6 +23,12 @@ public class TrackableController : Controller
         var trackables = await _trackableRepository.GetAll();
         return View(trackables);
     }
+    
+    public async Task<IActionResult> IndexByProject(string projectName)
+    {
+        var trackables = await _trackableRepository.GetByProjectName(projectName);
+        return View("Index", trackables);
+    }
 
     public async Task<IActionResult> Detail(int id)
     {
@@ -34,7 +40,7 @@ public class TrackableController : Controller
     {
         return View();
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Create(TrackableViewModel trackableVm)
     {
