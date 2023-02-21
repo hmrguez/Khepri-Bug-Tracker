@@ -1,8 +1,8 @@
-﻿@model Trackable
+﻿@model BugTrackerWebApp.ViewModels.TrackBoxViewModel
 
 <div class="form-group">
     <form action="Delete" method="post">
-        <input type="hidden" asp-for="Id"/>
+        <input type="hidden" asp-for="@Model.Trackable.Id"/>
         <input type="submit" value="Confirm" class="btn btn-danger float-right mt-3"/>
     </form>
 </div>

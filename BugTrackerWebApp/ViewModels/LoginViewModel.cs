@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BugTrackerWebApp.ViewModels;
 
-public class LoginViewModel
+public class LoginViewModel : ViewModelBase
 {
     [Display(Name = "Email Address")]
     [Required(ErrorMessage = "Email address is required")] public string Email { get; set; }

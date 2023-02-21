@@ -2,7 +2,7 @@
 
 namespace BugTrackerWebApp.ViewModels;
 
-public class EditTrackableViewModel
+public class EditTrackableViewModel : ViewModelBase
 {
     public int Id { get; set; }
     public string Name { get; set; }

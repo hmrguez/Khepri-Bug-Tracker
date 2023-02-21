@@ -1,5 +1,6 @@
 ﻿using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
+using BugTrackerWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BugTrackerWebApp.Controllers;
@@ -18,13 +19,13 @@ public class ProjectController : Controller
     public async Task<IActionResult> Index()
     {
         var projects = await _projectRepository.GetAll();
-        return View(projects);
+        return View(new EnumerableViewModel<Project>{Enumerable = projects, Temp = "Project"});
     }
 
     public async Task<IActionResult> IndexForTrack()
     {
         var projects = await _projectRepository.GetAll();
-        return View(projects);
+        return View(new EnumerableViewModel<Project>{Enumerable = projects, Temp = "Project"});
     }
 
     //Create controller just like the trackable one
@@ -56,13 +57,13 @@ public class ProjectController : Controller
         {
             return NotFound();
         }
-        return View(project);
+        return View(new ProjectBoxViewModel{Project = project, Temp = "Delete Project"});
     }
     
     [HttpPost, ActionName("Delete")]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmed(ProjectBoxViewModel projectBoxViewModel)
     {
-        var project = await _projectRepository.GetById(id);
+        var project = await _projectRepository.GetById(projectBoxViewModel.Project.Id);
         if (project == null)
         {
             return NotFound();

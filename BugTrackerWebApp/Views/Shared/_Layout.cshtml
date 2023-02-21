@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model BugTrackerWebApp.ViewModels.ViewModelBase
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -32,6 +34,11 @@
                     </li>
                 </ul>
             </div>
+            <div class="btn-dark">
+                <a class="btn btn-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                <a class="btn btn-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+            </div>
+            <div>@Model.Temp</div>
         </div>
     </nav>
 </header>

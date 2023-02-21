@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Trackable>
+﻿@model BugTrackerWebApp.ViewModels.EnumerableViewModel<Trackable>
 
 @{
     var count = 1;
@@ -18,7 +18,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Enumerable)
     {
         <tr>
             <td class="text-center">@(count++)</td>

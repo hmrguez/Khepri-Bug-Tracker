@@ -2,7 +2,7 @@
 
 namespace BugTrackerWebApp.ViewModels;
 
-public class RegisterViewModel
+public class RegisterViewModel : ViewModelBase
 {
     [Required(ErrorMessage = "Email is required")]
     [Display(Name = "Email address")]

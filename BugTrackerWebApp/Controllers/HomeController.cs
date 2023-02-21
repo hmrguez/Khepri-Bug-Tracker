@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using BugTrackerWebApp.Models;
+using BugTrackerWebApp.ViewModels;
 
 namespace BugTrackerWebApp.Controllers;
 
@@ -15,9 +16,9 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        return View(new ViewModelBase { Temp = "Hello World" });
     }
-
+    
     public IActionResult Privacy()
     {
         return View();

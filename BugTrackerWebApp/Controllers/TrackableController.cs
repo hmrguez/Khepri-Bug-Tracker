@@ -21,13 +21,13 @@ public class TrackableController : Controller
     public async Task<IActionResult> Index()
     {
         var trackables = await _trackableRepository.GetAll();
-        return View(trackables);
+        return View(new EnumerableViewModel<Trackable>{Enumerable = trackables, Temp = "Trackables"});
     }
     
     public async Task<IActionResult> IndexByProject(string projectName)
     {
         var trackables = await _trackableRepository.GetByProjectName(projectName);
-        return View("Index", trackables);
+        return View("Index", new EnumerableViewModel<Trackable>{Enumerable = trackables, Temp = "Trackables"});
     }
 
     public async Task<IActionResult> Detail(int id)
@@ -70,13 +70,13 @@ public class TrackableController : Controller
     {
         var track = await _trackableRepository.GetById(id);
         if (track == null) return NotFound();
-        return View(track);
+        return View(new TrackBoxViewModel{Trackable = track, Temp = "Delete"});
     }
     
     [HttpPost, ActionName("Delete")]
-    public async Task<IActionResult> DeleteTrack(int id)
+    public async Task<IActionResult> DeleteTrack(TrackBoxViewModel trackBoxViewModel)
     {
-        var track = await _trackableRepository.GetById(id);
+        var track = await _trackableRepository.GetById(trackBoxViewModel.Trackable.Id);
         if (track == null) return View("Error");
         _trackableRepository.Delete(track);
         return RedirectToAction("Index");
