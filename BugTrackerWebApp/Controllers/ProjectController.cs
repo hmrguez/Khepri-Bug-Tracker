@@ -11,26 +11,28 @@ public class ProjectController : Controller
 {
     private readonly IProjectRepository _projectRepository;
     private readonly ITrackableRepository _trackableRepository;
+    private readonly IUserRepository _userRepository;
     private readonly UserManager<AppUser> _userManager;
 
-    public ProjectController(IProjectRepository projectRepository, ITrackableRepository trackableRepository, UserManager<AppUser> userManager)
+    public ProjectController(IProjectRepository projectRepository, ITrackableRepository trackableRepository,IUserRepository userRepository, UserManager<AppUser> userManager)
     {
         _projectRepository = projectRepository;
         _trackableRepository = trackableRepository;
+        _userRepository = userRepository;
         _userManager = userManager;
     }
     
     public async Task<IActionResult> Index()
     {
         var currentUser = await _userManager.GetUserAsync(User);
-        var projects = await _projectRepository.GetAll();
+        var projects = await _userRepository.GetAllProjectsByUser(currentUser);
         return View(new EnumerableViewModel<Project>{Enumerable = projects, UserName = currentUser.Email});
     }
 
     public async Task<IActionResult> IndexForTrack()
     {
         var currentUser = await _userManager.GetUserAsync(User);
-        var projects = await _projectRepository.GetAll();
+        var projects = await _userRepository.GetAllProjectsByUser(currentUser);
         return View(new EnumerableViewModel<Project>{Enumerable = projects, UserName = currentUser.Email});
     }
 
