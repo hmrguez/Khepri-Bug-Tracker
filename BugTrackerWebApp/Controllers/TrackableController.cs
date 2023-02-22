@@ -25,14 +25,14 @@ public class TrackableController : Controller
     {
         var currentUser = await _userManager.GetUserAsync(User);
         var trackables = await _trackableRepository.GetAll();
-        return View(new EnumerableViewModel<Trackable>{Enumerable = trackables, UserName = currentUser?.Email});
+        return View(new TrackableListViewModel{Enumerable = trackables, UserName = currentUser?.Email});
     }
     
     public async Task<IActionResult> IndexByProject(string projectName)
     {
         var currentUser = await _userManager.GetUserAsync(User);
         var trackables = await _trackableRepository.GetByProjectName(projectName);
-        return View("Index", new EnumerableViewModel<Trackable>{Enumerable = trackables, UserName = currentUser?.Email});
+        return View("Index", new TrackableListViewModel{ProjectName = projectName, Enumerable = trackables, UserName = currentUser?.Email});
     }
 
     public async Task<IActionResult> Detail(int id)
@@ -41,9 +41,13 @@ public class TrackableController : Controller
         return View(trackable);
     }
 
-    public IActionResult Create()
+    public IActionResult Create(string projectName)
     {
-        return View();
+        var vm = new TrackableViewModel
+        {
+            ProjectName = projectName
+        };
+        return View(vm);
     }
 
     [HttpPost]

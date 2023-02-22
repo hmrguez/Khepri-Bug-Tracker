@@ -1,4 +1,4 @@
-﻿@model BugTrackerWebApp.ViewModels.EnumerableViewModel<Trackable>
+﻿@model BugTrackerWebApp.ViewModels.TrackableListViewModel
 
 @{
     var count = 1;
@@ -48,4 +48,4 @@
     </tbody>
 </table>
 
-<a type="button" class="btn btn-primary btn-sm" asp-controller="Trackable" asp-action="Create"><span class="bi-plus-square-fill"></span>&nbsp;Add</a>
+<a type="button" class="btn btn-primary btn-sm" asp-controller="Trackable" asp-action="Create" asp-route-projectName="@Model.ProjectName"><span class="bi-plus-square-fill"></span>&nbsp;Add</a>
