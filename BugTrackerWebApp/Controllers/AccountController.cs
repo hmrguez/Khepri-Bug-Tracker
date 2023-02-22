@@ -37,7 +37,7 @@ public class AccountController : Controller
             var passwordCheck = await _userManager.CheckPasswordAsync(user, loginViewModel.Password);
             if (passwordCheck)
             {
-                var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, true, false);
+                var result = await _signInManager.PasswordSignInAsync(user.Email, loginViewModel.Password, false, false);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");

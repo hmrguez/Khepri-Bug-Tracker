@@ -2,5 +2,5 @@
 
 public class ViewModelBase
 {
-    public string Temp { get; set; }
+    public string? UserName { get; set; }
 }

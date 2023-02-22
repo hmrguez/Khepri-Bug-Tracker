@@ -1,6 +1,8 @@
-﻿@model Project
+﻿@model BugTrackerWebApp.ViewModels.CreateProjectViewModel
 
 <form method="post" asp-action="Create">
+    <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId"/>
+    <input type="hidden" asp-for="UserName"/>
     <div class="form-group">
         <label asp-for="Name">Title</label>
         <input asp-for="Name" class="form-control" placeholder="Name">

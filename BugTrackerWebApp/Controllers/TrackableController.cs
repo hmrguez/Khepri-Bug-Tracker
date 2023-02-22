@@ -2,6 +2,7 @@
 using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 using BugTrackerWebApp.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
@@ -11,23 +12,27 @@ public class TrackableController : Controller
 {
     private readonly ITrackableRepository _trackableRepository;
     private readonly IProjectRepository _projectRepository;
+    private readonly UserManager<AppUser> _userManager;
 
-    public TrackableController(ITrackableRepository trackableRepository, IProjectRepository projectRepository)
+    public TrackableController(ITrackableRepository trackableRepository, IProjectRepository projectRepository, UserManager<AppUser> userManager)
     {
         _trackableRepository = trackableRepository;
         _projectRepository = projectRepository;
+        _userManager = userManager;
     }
     
     public async Task<IActionResult> Index()
     {
+        var currentUser = await _userManager.GetUserAsync(User);
         var trackables = await _trackableRepository.GetAll();
-        return View(new EnumerableViewModel<Trackable>{Enumerable = trackables, Temp = "Trackables"});
+        return View(new EnumerableViewModel<Trackable>{Enumerable = trackables, UserName = currentUser?.Email});
     }
     
     public async Task<IActionResult> IndexByProject(string projectName)
     {
+        var currentUser = await _userManager.GetUserAsync(User);
         var trackables = await _trackableRepository.GetByProjectName(projectName);
-        return View("Index", new EnumerableViewModel<Trackable>{Enumerable = trackables, Temp = "Trackables"});
+        return View("Index", new EnumerableViewModel<Trackable>{Enumerable = trackables, UserName = currentUser?.Email});
     }
 
     public async Task<IActionResult> Detail(int id)
@@ -70,7 +75,8 @@ public class TrackableController : Controller
     {
         var track = await _trackableRepository.GetById(id);
         if (track == null) return NotFound();
-        return View(new TrackBoxViewModel{Trackable = track, Temp = "Delete"});
+        var currentUser = await _userManager.GetUserAsync(User);
+        return View(new TrackBoxViewModel{Trackable = track, UserName = currentUser?.Email});
     }
     
     [HttpPost, ActionName("Delete")]

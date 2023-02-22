@@ -38,7 +38,16 @@
                 <a class="btn btn-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                 <a class="btn btn-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
             </div>
-            <div>@Model.Temp</div>
+            <div>
+                @if (Model is null)
+                {
+                    <p>dasdsadsa</p>
+                }
+                else
+                {
+                    <p>@Model.UserName</p>
+                }
+            </div>
         </div>
     </nav>
 </header>

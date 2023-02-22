@@ -1,22 +1,27 @@
 ﻿using System.Diagnostics;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using BugTrackerWebApp.Models;
 using BugTrackerWebApp.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace BugTrackerWebApp.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly UserManager<AppUser> _userManager;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, UserManager<AppUser> userManager)
     {
         _logger = logger;
+        _userManager = userManager;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View(new ViewModelBase { Temp = "Hello World" });
+        // var currentUser = await _userManager.GetUserAsync(User);
+        return View(new ViewModelBase { UserName = "currentUser?.Email" });
     }
     
     public IActionResult Privacy()
