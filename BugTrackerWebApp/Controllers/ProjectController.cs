@@ -2,6 +2,7 @@
 using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 using BugTrackerWebApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,32 +12,37 @@ public class ProjectController : Controller
 {
     private readonly IProjectRepository _projectRepository;
     private readonly ITrackableRepository _trackableRepository;
-    private readonly IUserRepository _userRepository;
     private readonly UserManager<AppUser> _userManager;
 
-    public ProjectController(IProjectRepository projectRepository, ITrackableRepository trackableRepository,IUserRepository userRepository, UserManager<AppUser> userManager)
+    public ProjectController(IProjectRepository projectRepository, ITrackableRepository trackableRepository, UserManager<AppUser> userManager)
     {
         _projectRepository = projectRepository;
         _trackableRepository = trackableRepository;
-        _userRepository = userRepository;
         _userManager = userManager;
     }
-    
+
+    #region List
+
+    [Authorize]
     public async Task<IActionResult> Index()
     {
         var currentUser = await _userManager.GetUserAsync(User);
-        var projects = await _userRepository.GetAllProjectsByUser(currentUser);
-        return View(new EnumerableViewModel<Project>{Enumerable = projects, UserName = currentUser.Email});
+        var projects = await _projectRepository.GetByUser(currentUser.Id);
+        return View(new EnumerableViewModel<Project>{Collection = projects, UserName = currentUser.Email});
     }
-
+    
+    [Authorize]
     public async Task<IActionResult> IndexForTrack()
     {
         var currentUser = await _userManager.GetUserAsync(User);
-        var projects = await _userRepository.GetAllProjectsByUser(currentUser);
-        return View(new EnumerableViewModel<Project>{Enumerable = projects, UserName = currentUser.Email});
+        var projects = await _projectRepository.GetByUser(currentUser.Id);
+        return View(new EnumerableViewModel<Project>{Collection = projects, UserName = currentUser.Email});
     }
 
-    //Create controller just like the trackable one
+    #endregion
+
+    #region Create
+
     public async Task<IActionResult> Create()
     {
         var currentUser = await _userManager.GetUserAsync(User);
@@ -65,8 +71,11 @@ public class ProjectController : Controller
             return View(projectVm);
         }
     }
-    
-    //Delete controller just like the trackable one
+
+    #endregion
+
+    #region Delete
+
     public async Task<IActionResult> Delete(int id)
     {
         var currentUser = await _userManager.GetUserAsync(User);
@@ -96,4 +105,7 @@ public class ProjectController : Controller
         _projectRepository.Delete(project);
         return RedirectToAction("Index");
     }
+
+    #endregion
+    
 }

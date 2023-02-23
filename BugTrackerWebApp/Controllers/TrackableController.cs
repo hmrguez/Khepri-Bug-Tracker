@@ -4,7 +4,6 @@ using BugTrackerWebApp.Models;
 using BugTrackerWebApp.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
 namespace BugTrackerWebApp.Controllers;
 
@@ -20,20 +19,19 @@ public class TrackableController : Controller
         _projectRepository = projectRepository;
         _userManager = userManager;
     }
-    
-    public async Task<IActionResult> Index()
+
+    #region List
+
+    public async Task<IActionResult> Index(int projectId)
     {
         var currentUser = await _userManager.GetUserAsync(User);
-        var trackables = await _trackableRepository.GetAll();
-        return View(new TrackableListViewModel{Enumerable = trackables, UserName = currentUser?.Email});
+        var trackables = await _trackableRepository.GetByProjectId(projectId);
+        return View(new TrackableListViewModel{ ProjectId = projectId, Trackables = trackables, UserName = currentUser?.Email});
     }
-    
-    public async Task<IActionResult> IndexByProject(string projectName)
-    {
-        var currentUser = await _userManager.GetUserAsync(User);
-        var trackables = await _trackableRepository.GetByProjectName(projectName);
-        return View("Index", new TrackableListViewModel{ProjectName = projectName, Enumerable = trackables, UserName = currentUser?.Email});
-    }
+
+    #endregion
+
+    #region Detail
 
     public async Task<IActionResult> Detail(int id)
     {
@@ -41,11 +39,22 @@ public class TrackableController : Controller
         return View(trackable);
     }
 
-    public IActionResult Create(string projectName)
+    #endregion
+
+    #region Create
+
+    public async Task<IActionResult> Create(int projectId)
     {
+        // var currentUser = await _userManager.GetUserAsync(User);
+        // var project = await _projectRepository.GetById(projectId);
+        // if (project.AppUserId != currentUser.Id)
+        // {
+        //     return NotFound(new ViewModelBase { UserName = currentUser.Email });
+        // }
+        
         var vm = new TrackableViewModel
         {
-            ProjectName = projectName
+            ProjectId = projectId
         };
         return View(vm);
     }
@@ -55,18 +64,19 @@ public class TrackableController : Controller
     {
         if (ModelState.IsValid)
         {
-            var project = await _projectRepository.GetByName(trackableVm.ProjectName);
             var track = new Trackable()
             {
                 Name = trackableVm.Name,
                 Description = trackableVm.Description,
-                ProjectId = project.Id,
+                ProjectId = trackableVm.ProjectId,
                 DateCreated = DateTime.Now,
                 Status = Status.Opened,
                 TrackType = trackableVm.TrackType
             };
             _trackableRepository.Add(track);
-            return RedirectToAction("Index");
+            var currentUser = await _userManager.GetUserAsync(User);
+            var trackables = await _trackableRepository.GetByProjectId(track.ProjectId);
+            return View("Index", new TrackableListViewModel{ ProjectId = track.ProjectId, Trackables = trackables, UserName = currentUser?.Email});
         }
         else
         {
@@ -74,6 +84,10 @@ public class TrackableController : Controller
             return View(trackableVm);
         }
     }
+
+    #endregion
+
+    #region Delete
 
     public async Task<IActionResult> Delete(int id)
     {
@@ -89,8 +103,15 @@ public class TrackableController : Controller
         var track = await _trackableRepository.GetById(trackBoxViewModel.Trackable.Id);
         if (track == null) return View("Error");
         _trackableRepository.Delete(track);
-        return RedirectToAction("Index");
+        var currentUser = await _userManager.GetUserAsync(User);
+        var trackables = await _trackableRepository.GetByProjectId(track.ProjectId);
+        return View("Index", new TrackableListViewModel{ ProjectId = track.ProjectId, Trackables = trackables, UserName = currentUser?.Email});
+
     }
+
+    #endregion
+
+    #region Edit
 
     public async Task<IActionResult> Edit(int id)
     {
@@ -133,19 +154,27 @@ public class TrackableController : Controller
             };
 
             _trackableRepository.Update(trackable);
-            return RedirectToAction("Index");
+            var currentUser = await _userManager.GetUserAsync(User);
+            var trackables = await _trackableRepository.GetByProjectId(trackable.ProjectId);
+            return View("Index", new TrackableListViewModel{ ProjectId = trackable.ProjectId, Trackables = trackables, UserName = currentUser?.Email});
+
         }
         else
         {
             return View(editTrackableViewModel);
         }
     }
-
+    
     public async Task<IActionResult> QuickCheck(int id)
     {
         var trackable = await _trackableRepository.GetById(id);
         trackable.Status = Status.Completed;
         _trackableRepository.Update(trackable);
-        return RedirectToAction("Index");
+        var currentUser = await _userManager.GetUserAsync(User);
+        var trackables = await _trackableRepository.GetByProjectId(trackable.ProjectId);
+        return View("Index", new TrackableListViewModel{ ProjectId = trackable.ProjectId, Trackables = trackables, UserName = currentUser?.Email});
     }
+
+    #endregion
+    
 }

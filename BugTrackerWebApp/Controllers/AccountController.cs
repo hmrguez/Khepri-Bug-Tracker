@@ -10,16 +10,15 @@ public class AccountController : Controller
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
-    private readonly ApplicationDbContext _context;
 
-    public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ApplicationDbContext context)
+    public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
-        _context = context;
     }
-    
-    
+
+    #region Login
+
     public IActionResult Login()
     {
         return View();
@@ -48,6 +47,10 @@ public class AccountController : Controller
         TempData["Error"] = "Wrong credentials. Please, try again";
         return View(loginViewModel);
     }
+
+    #endregion
+
+    #region Register
 
     public IActionResult Register()
     {
@@ -84,10 +87,16 @@ public class AccountController : Controller
         return View(registerViewModel);
     }
 
-    [HttpPost]
+    #endregion
+
+    #region Logout
+
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
         return RedirectToAction("Login");
     }
+
+    #endregion
+    
 }

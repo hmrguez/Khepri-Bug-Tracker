@@ -2,5 +2,5 @@
 
 public class EnumerableViewModel<T> : ViewModelBase
 {
-    public IEnumerable<T> Enumerable { get; set; }
+    public IEnumerable<T> Collection { get; set; }
 }

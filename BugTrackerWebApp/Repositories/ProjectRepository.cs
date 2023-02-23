@@ -29,6 +29,11 @@ public class ProjectRepository : IProjectRepository
         return await _context.Projects.FirstOrDefaultAsync(x => x.Name == name);
     }
 
+    public async Task<IEnumerable<Project>> GetByUser(string userId)
+    {
+        return await _context.Projects.Where(x=>x.AppUserId == userId).ToListAsync();
+    }
+
     public bool Add(Project club)
     {
         _context.Add(club);
