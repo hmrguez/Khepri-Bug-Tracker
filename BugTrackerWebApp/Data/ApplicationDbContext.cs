@@ -13,4 +13,5 @@ public class ApplicationDbContext : IdentityDbContext<AppUser>
     
     public DbSet<Trackable> Trackables { get; set; }
     public DbSet<Project> Projects { get; set; }
+    public DbSet<AppUser> AppUsers { get; set; }
 }

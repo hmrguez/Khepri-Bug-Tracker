@@ -12,21 +12,19 @@
         <th>Project</th>
         <th>Type</th>
         <th>Status</th>
-        <th>Lead dev</th>
         <th class="text-right">Actions</th>
         <th>Quick Check</th>
     </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.Enumerable)
+    @foreach (var item in Model.Trackables)
     {
-        <tr>
+        <tr style="padding: 1rem">
             <td class="text-center">@(count++)</td>
             <td>@item.Name</td>
             <td>@item.Project.Name</td>
             <td>@item.TrackType</td>
-            <td>@item.Status</td>
-            <td>@item.AppUser</td>
+            <td>@item.Status</td>\
             <td class="td-actions text-right">
                 <a type="button" rel="tooltip" class="btn btn-info" asp-controller="Trackable" asp-action="Detail" asp-route-id="@item.Id">
                     <i class="material-icons">info</i>
@@ -48,4 +46,14 @@
     </tbody>
 </table>
 
-<a type="button" class="btn btn-primary btn-sm" asp-controller="Trackable" asp-action="Create" asp-route-projectName="@Model.ProjectName"><span class="bi-plus-square-fill"></span>&nbsp;Add</a>
+
+
+
+
+
+
+
+
+
+
+<a type="button" class="btn btn-primary btn-sm" asp-controller="Trackable" asp-action="Create" asp-route-projectId="@Model.ProjectId"><span class="bi-plus-square-fill"></span>&nbsp;Add</a>

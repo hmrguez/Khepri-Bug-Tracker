@@ -310,7 +310,7 @@ namespace BugTrackerWebApp.Migrations
             modelBuilder.Entity("BugTrackerWebApp.Models.Trackable", b =>
                 {
                     b.HasOne("BugTrackerWebApp.Models.AppUser", "AppUser")
-                        .WithMany("Trackables")
+                        .WithMany()
                         .HasForeignKey("AppUserId");
 
                     b.HasOne("BugTrackerWebApp.Models.Project", "Project")
@@ -378,8 +378,6 @@ namespace BugTrackerWebApp.Migrations
             modelBuilder.Entity("BugTrackerWebApp.Models.AppUser", b =>
                 {
                     b.Navigation("Projects");
-
-                    b.Navigation("Trackables");
                 });
 #pragma warning restore 612, 618
         }

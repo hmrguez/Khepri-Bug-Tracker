@@ -2,7 +2,7 @@
 @model BugTrackerWebApp.ViewModels.TrackableViewModel
 
 <form method="post" asp-action="Create">
-    <input type="hidden" name="ProjectName" asp-for="ProjectName" id="ProjectName"/>
+    <input type="hidden" name="ProjectId" asp-for="ProjectId" id="ProjectId"/>
     <div class="form-group">
         <label asp-for="Name">Title</label>
         <input asp-for="Name" class="form-control" placeholder="Name">

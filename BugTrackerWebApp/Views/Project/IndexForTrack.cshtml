@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             
-            @foreach (var item in Model.Enumerable)
+            @foreach (var item in Model.Collection)
             {
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
@@ -13,7 +13,7 @@
                             <p class="card-footer">@item.GithubLink</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a type="button" class="btn btn-sm btn-outline-secondary" asp-controller="Trackable" asp-action="IndexByProject" asp-route-projectName="@item.Name">View</a>
+                                    <a type="button" class="btn btn-sm btn-outline-secondary" asp-controller="Trackable" asp-action="Index" asp-route-projectId="@item.Id">View</a>
                                 </div>
                             </div>
                         </div>

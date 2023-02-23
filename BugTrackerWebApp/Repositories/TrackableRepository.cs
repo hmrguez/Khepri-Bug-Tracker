@@ -37,6 +37,14 @@ public class TrackableRepository : ITrackableRepository
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<Trackable>> GetByProjectId(int projectId)
+    {
+        return await _context.Trackables
+            .Include(x => x.Project)
+            .Where(x => x.Project.Id == projectId)
+            .ToListAsync();
+    }
+
     public bool Add(Trackable club)
     {
         _context.Add(club);

@@ -2,7 +2,8 @@
 
 namespace BugTrackerWebApp.ViewModels;
 
-public class TrackableListViewModel : EnumerableViewModel<Trackable>
+public class TrackableListViewModel : ViewModelBase
 {
-    public string? ProjectName { get; set; }
+    public int ProjectId { get; set; }
+    public IEnumerable<Trackable> Trackables { get; set; }
 }
