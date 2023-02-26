@@ -12,10 +12,14 @@ public class Trackable
     public TrackType TrackType { get; set; }
     public DateTime DateCreated { get; set; }
     public Status Status { get; set; }
-    
+
+    public string? LeadEmail { get; set; }
+
     [ForeignKey("Project")] public int ProjectId { get; set; }
     public Project Project { get; set; }
     
     [ForeignKey("AppUser")] public string? AppUserId { get; set; }
     public AppUser? AppUser { get; set; }
+    
+    
 }

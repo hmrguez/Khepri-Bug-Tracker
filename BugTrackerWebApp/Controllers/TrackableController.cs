@@ -45,13 +45,6 @@ public class TrackableController : Controller
 
     public async Task<IActionResult> Create(int projectId)
     {
-        // var currentUser = await _userManager.GetUserAsync(User);
-        // var project = await _projectRepository.GetById(projectId);
-        // if (project.AppUserId != currentUser.Id)
-        // {
-        //     return NotFound(new ViewModelBase { UserName = currentUser.Email });
-        // }
-        
         var vm = new TrackableViewModel
         {
             ProjectId = projectId
@@ -70,6 +63,7 @@ public class TrackableController : Controller
                 Description = trackableVm.Description,
                 ProjectId = trackableVm.ProjectId,
                 DateCreated = DateTime.Now,
+                LeadEmail = trackableVm.ManagerEmail,
                 Status = Status.Opened,
                 TrackType = trackableVm.TrackType
             };

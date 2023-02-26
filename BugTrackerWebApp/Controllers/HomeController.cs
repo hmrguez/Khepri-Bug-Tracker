@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Security.Claims;
+using BugTrackerWebApp.Data;
+using BugTrackerWebApp.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using BugTrackerWebApp.Models;
 using BugTrackerWebApp.ViewModels;
@@ -11,11 +13,13 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly UserManager<AppUser> _userManager;
+    private readonly IEmailService _emailService;
 
-    public HomeController(ILogger<HomeController> logger, UserManager<AppUser> userManager)
+    public HomeController(ILogger<HomeController> logger, UserManager<AppUser> userManager, IEmailService emailService)
     {
         _logger = logger;
         _userManager = userManager;
+        _emailService = emailService;
     }
 
     public async Task<IActionResult> Index()
@@ -28,7 +32,8 @@ public class HomeController : Controller
     {
         return View();
     }
-
+    
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
