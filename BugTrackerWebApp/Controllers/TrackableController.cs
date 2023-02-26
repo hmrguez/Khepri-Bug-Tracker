@@ -1,4 +1,5 @@
-﻿using BugTrackerWebApp.Data.Enum;
+﻿using BugTrackerWebApp.Data;
+using BugTrackerWebApp.Data.Enum;
 using BugTrackerWebApp.Interfaces;
 using BugTrackerWebApp.Models;
 using BugTrackerWebApp.ViewModels;
@@ -12,12 +13,14 @@ public class TrackableController : Controller
     private readonly ITrackableRepository _trackableRepository;
     private readonly IProjectRepository _projectRepository;
     private readonly UserManager<AppUser> _userManager;
+    private readonly IEmailService _emailService;
 
-    public TrackableController(ITrackableRepository trackableRepository, IProjectRepository projectRepository, UserManager<AppUser> userManager)
+    public TrackableController(ITrackableRepository trackableRepository, IProjectRepository projectRepository, UserManager<AppUser> userManager, IEmailService emailService)
     {
         _trackableRepository = trackableRepository;
         _projectRepository = projectRepository;
         _userManager = userManager;
+        _emailService = emailService;
     }
 
     #region List
@@ -134,6 +137,17 @@ public class TrackableController : Controller
         var track = await _trackableRepository.GetByIdNoTracking(id);
         if (track != null)
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            
+            var currentStatus = track.Status;
+            var newStatus = editTrackableViewModel.Status;
+
+            if (currentStatus != Status.Completed && newStatus == Status.Completed && track.LeadEmail != null)
+            {
+                var completedEmail = EmailTemplates.CompletedTaskEmail(currentUser,track, track.LeadEmail);
+                _emailService.SendEmail(completedEmail);
+            }
+            
             var project = await _projectRepository.GetByName(editTrackableViewModel.ProjectName);
             var trackable = new Trackable()
             {
@@ -148,7 +162,6 @@ public class TrackableController : Controller
             };
 
             _trackableRepository.Update(trackable);
-            var currentUser = await _userManager.GetUserAsync(User);
             var trackables = await _trackableRepository.GetByProjectId(trackable.ProjectId);
             return View("Index", new TrackableListViewModel{ ProjectId = trackable.ProjectId, Trackables = trackables, UserName = currentUser?.Email});
 
@@ -161,10 +174,17 @@ public class TrackableController : Controller
     
     public async Task<IActionResult> QuickCheck(int id)
     {
+        var currentUser = await _userManager.GetUserAsync(User);
         var trackable = await _trackableRepository.GetById(id);
+        
+        if(trackable.Status != Status.Completed && trackable.LeadEmail != null)
+        {
+            var completedEmail = EmailTemplates.CompletedTaskEmail(currentUser, trackable, trackable.LeadEmail);
+            _emailService.SendEmail(completedEmail);
+        }
+        
         trackable.Status = Status.Completed;
         _trackableRepository.Update(trackable);
-        var currentUser = await _userManager.GetUserAsync(User);
         var trackables = await _trackableRepository.GetByProjectId(trackable.ProjectId);
         return View("Index", new TrackableListViewModel{ ProjectId = trackable.ProjectId, Trackables = trackables, UserName = currentUser?.Email});
     }
