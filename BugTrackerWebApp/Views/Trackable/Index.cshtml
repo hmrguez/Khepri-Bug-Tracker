@@ -4,6 +4,8 @@
     var count = 1;
 }
 
+<a type="button" class="btn btn-primary btn-sm" asp-controller="Trackable" asp-action="Create" asp-route-projectId="@Model.ProjectId"><span class="bi-plus-square-fill"></span>&nbsp;Add</a>
+
 <table class="table">
     <thead>
     <tr>
@@ -56,4 +58,3 @@
 
 
 
-<a type="button" class="btn btn-primary btn-sm" asp-controller="Trackable" asp-action="Create" asp-route-projectId="@Model.ProjectId"><span class="bi-plus-square-fill"></span>&nbsp;Add</a>

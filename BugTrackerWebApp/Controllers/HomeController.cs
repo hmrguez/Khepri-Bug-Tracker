@@ -24,8 +24,8 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        // var currentUser = await _userManager.GetUserAsync(User);
-        return View(new ViewModelBase { UserName = "currentUser?.Email" });
+        var currentUser = await _userManager.GetUserAsync(User);
+        return View(new ViewModelBase { UserName = currentUser?.Email });
     }
     
     public IActionResult Privacy()

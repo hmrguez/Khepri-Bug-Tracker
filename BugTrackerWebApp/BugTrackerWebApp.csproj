@@ -15,10 +15,15 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
+      <PackageReference Include="Moq" Version="4.18.4" />
     </ItemGroup>
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Views\TestingEmail\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\core\bootstrap.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\core\jquery.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\core\popper.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\core\bootstrap.bundle.min.js" />
     </ItemGroup>
 
 </Project>
