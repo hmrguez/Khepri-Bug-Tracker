@@ -1,8 +1,46 @@
 ﻿@model BugTrackerWebApp.ViewModels.ProjectBoxViewModel
 
-<div class="form-group">
-<form action="Delete" method="post">
-    <input type="hidden" asp-for="@Model.Project.Id"/>
-    <input type="submit" value="Confirm" class="btn btn-danger float-right mt-3"/>
-</form>
-</div>
+
+
+<section>
+  <div class="container py-4 m-2">
+    <div class="row">
+      <div class="col-lg-4 mx-auto d-flex justify-content-center flex-column">
+        <form method="post" asp-action="Delete">
+          <input type="hidden" asp-for="@Model.Project.Id"/>
+          <div class="alert alert-danger text-white" role="alert">
+            <strong>Danger!</strong> You are about to delete project <strong>@Model.Project.Name</strong>
+            <br/>
+            <br/>
+            <div class="d-flex justify-content-center">
+              <strong class="">Are you sure?</strong>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" class="btn bg-gradient-danger w-100">Delete</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+@* <div class="form-group"> *@
+@* <form action="Delete" method="post"> *@
+@*     <input type="hidden" asp-for="@Model.Project.Id"/> *@
+@*     <input type="submit" value="Confirm" class="btn btn-danger float-right mt-3"/> *@
+@* </form> *@
+@* </div> *@

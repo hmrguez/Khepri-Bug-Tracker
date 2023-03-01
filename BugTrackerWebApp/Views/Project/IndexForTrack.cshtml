@@ -1,26 +1,60 @@
 ﻿@model BugTrackerWebApp.ViewModels.EnumerableViewModel<Project>
 
-<div class="album py-5 bg-light">
-    <div class="container">
-        <div class="row">
-            
-            @foreach (var item in Model.Collection)
-            {
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body">
-                            <p class="card-text">@item.Name</p>
-                            <p class="card-footer">@item.GithubLink</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a type="button" class="btn btn-sm btn-outline-secondary" asp-controller="Trackable" asp-action="Index" asp-route-projectId="@item.Id">View</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-            
-        </div>
+
+<div class="row justify-content-center">
+  @foreach (var item in Model.Collection)
+  {
+    <div class="card col-3 m-2 pb-0">
+      <div class="card-body">
+        <h5 class="card-title">@item.Name</h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          <a href="@item.GithubLink">
+            Github
+          </a>
+        </h6>
+        <p class="card-text">@item.Description</p>
+        <a asp-controller="Trackable" asp-action="Index" asp-route-projectId="@item.Id" class="btn btn-outline-success">See tasks</a>
+        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+      </div>
     </div>
+  }
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <div class="album py-5 bg-light"> *@
+@*     <div class="container"> *@
+@*         <div class="row"> *@
+@*              *@
+@*             @foreach (var item in Model.Collection) *@
+@*             { *@
+@*                 <div class="col-md-4"> *@
+@*                     <div class="card mb-4 box-shadow"> *@
+@*                         <div class="card-body"> *@
+@*                             <p class="card-text">@item.Name</p> *@
+@*                             <p class="card-footer">@item.GithubLink</p> *@
+@*                             <div class="d-flex justify-content-between align-items-center"> *@
+@*                                 <div class="btn-group"> *@
+@*                                     <a type="button" class="btn btn-sm btn-outline-secondary" asp-controller="Trackable" asp-action="Index" asp-route-projectId="@item.Id">View</a> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+@*             } *@
+@*              *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@

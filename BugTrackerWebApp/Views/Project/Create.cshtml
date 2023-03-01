@@ -1,23 +1,91 @@
 ﻿@model BugTrackerWebApp.ViewModels.CreateProjectViewModel
 
-<form method="post" asp-action="Create">
-    <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId"/>
-    <input type="hidden" asp-for="UserName"/>
-    <div class="form-group">
-        <label asp-for="Name">Title</label>
-        <input asp-for="Name" class="form-control" placeholder="Name">
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Description">Description</label>
-        <input asp-for="Description" class="form-control" placeholder="Description">
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="GithubLink">Github Link</label>
-        <input asp-for="GithubLink" class="form-control" placeholder="Github Link">
-        <span asp-validation-for="GithubLink" class="text-danger"></span>
-    </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<section>
+  <div class="container py-4 m-2">
+    <div class="row">
+      <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+        <h3 class="text-center mb-3"><strong>Create Project</strong></h3>
+        <form method="post" asp-action="Create">
+          <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId"/>
+          <input type="hidden" asp-for="UserName"/>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group input-group-dynamic mb-4 is-valid">
+                  <label class="form-label">Name</label>
+                  <input asp-for="Name" class="form-control" aria-label="First Name..." type="text">
+                </div>
+              </div>
+              <div class="col-md-6 ps-2">
+                <div class="input-group input-group-dynamic is-valid">
+                  <label class="form-label">Github</label>
+                  <input asp-for="GithubLink" type="text" class="form-control" placeholder="" aria-label="Last Name...">
+                </div>
+              </div>
+            </div>
+            <div class="mb-4">
+              <div class="input-group input-group-dynamic is-valid">
+                <label class="form-label">Description</label>
+                <input asp-for="Description" type="text" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button type="submit" class="btn bg-gradient-dark w-100">Create</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <form method="post" asp-action="Create"> *@
+@*     <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId"/> *@
+@*     <input type="hidden" asp-for="UserName"/> *@
+@*     <div class="form-group"> *@
+@*         <label asp-for="Name">Title</label> *@
+@*         <input asp-for="Name" class="form-control" placeholder="Name"> *@
+@*         <span asp-validation-for="Name" class="text-danger"></span> *@
+@*     </div> *@
+@*     <div class="form-group"> *@
+@*         <label asp-for="Description">Description</label> *@
+@*         <input asp-for="Description" class="form-control" placeholder="Description"> *@
+@*         <span asp-validation-for="Description" class="text-danger"></span> *@
+@*     </div> *@
+@*     <div class="form-group"> *@
+@*         <label asp-for="GithubLink">Github Link</label> *@
+@*         <input asp-for="GithubLink" class="form-control" placeholder="Github Link"> *@
+@*         <span asp-validation-for="GithubLink" class="text-danger"></span> *@
+@*     </div> *@
+@* *@
+@*     <button type="submit" class="btn btn-primary">Submit</button> *@
+@* </form> *@
