@@ -39,7 +39,8 @@ public class TrackableController : Controller
     public async Task<IActionResult> Detail(int id)
     {
         var trackable = await _trackableRepository.GetById(id);
-        return View(trackable);
+        var currentUser = await _userManager.GetUserAsync(User);
+        return View(new TrackBoxViewModel{Trackable = trackable, UserName = currentUser.Email});
     }
 
     #endregion
@@ -158,7 +159,8 @@ public class TrackableController : Controller
                 Project = project,
                 Status = editTrackableViewModel.Status,
                 TrackType = editTrackableViewModel.TrackType,
-                DateCreated = track.DateCreated
+                DateCreated = track.DateCreated,
+                LeadEmail = editTrackableViewModel.LeadDevEmail
             };
 
             _trackableRepository.Update(trackable);

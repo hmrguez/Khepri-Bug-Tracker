@@ -1,30 +1,106 @@
 ﻿@using BugTrackerWebApp.Data.Enum
 @model BugTrackerWebApp.ViewModels.TrackableViewModel
 
-<form method="post" asp-action="Create">
-    <input type="hidden" name="ProjectId" asp-for="ProjectId" id="ProjectId"/>
-    <div class="form-group">
-        <label asp-for="Name">Title</label>
-        <input asp-for="Name" class="form-control" placeholder="Name">
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Description">Description</label>
-        <input asp-for="Description" class="form-control" placeholder="Description">
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-            <label asp-for="ManagerEmail">ManagerEmail</label>
-            <input asp-for="ManagerEmail" class="form-control" placeholder="ManagerEmail">
-            <span asp-validation-for="ManagerEmail" class="text-danger"></span>
-        </div>
-    <div class="form-group">
-        <label asp-for="TrackType">Category</label>
-        <select asp-for="TrackType" asp-items="@Html.GetEnumSelectList<TrackType>()" class="form-control">
-            <option>--Select--</option>
-        </select>
-        <span asp-validation-for="TrackType" class="text-danger"></span>
-    </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<section>
+  <div class="container py-4 m-2">
+    <div class="row">
+      <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+        <h3 class="text-center mb-3"><strong>Create Task</strong></h3>
+        <form method="post" asp-action="Create">
+          <input type="hidden" asp-for="ProjectId"/>
+          <input type="hidden" asp-for="UserName"/>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group input-group-dynamic mb-4 is-valid">
+                  <label class="form-label">Name</label>
+                  <input asp-for="Name" class="form-control" aria-label="First Name..." type="text">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group input-group-dynamic mb-4 is-valid">
+                  <label class="form-label">Manager Email</label>
+                  <input asp-for="ManagerEmail" class="form-control" aria-label="First Name..." type="text">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 h-25">
+              <div class="input-group input-group-static is-valid mb-4">
+                <label asp-for="TrackType" class="ms-0">Task Type</label>
+                <select class="form-control border-success" id="exampleFormControlSelect1" asp-for="TrackType" asp-items="@Html.GetEnumSelectList<TrackType>()">
+                </select>
+              </div>
+            </div>
+            <div class="mb-4">
+              <div class="input-group input-group-dynamic is-valid">
+                <label class="form-label">Description</label>
+                <input asp-for="Description" type="text" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button type="submit" class="btn bg-gradient-dark w-100">Create</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <form method="post" asp-action="Create"> *@
+@*     <input type="hidden" name="ProjectId" asp-for="ProjectId" id="ProjectId"/> *@
+@*     <div class="form-group"> *@
+@*         <label asp-for="Name">Title</label> *@
+@*         <input asp-for="Name" class="form-control" placeholder="Name"> *@
+@*         <span asp-validation-for="Name" class="text-danger"></span> *@
+@*     </div> *@
+@*     <div class="form-group"> *@
+@*         <label asp-for="Description">Description</label> *@
+@*         <input asp-for="Description" class="form-control" placeholder="Description"> *@
+@*         <span asp-validation-for="Description" class="text-danger"></span> *@
+@*     </div> *@
+@*     <div class="form-group"> *@
+@*             <label asp-for="ManagerEmail">ManagerEmail</label> *@
+@*             <input asp-for="ManagerEmail" class="form-control" placeholder="ManagerEmail"> *@
+@*             <span asp-validation-for="ManagerEmail" class="text-danger"></span> *@
+@*         </div> *@
+@*     <div class="form-group"> *@
+@*         <label asp-for="TrackType">Category</label> *@
+@*         <select asp-for="TrackType" asp-items="@Html.GetEnumSelectList<TrackType>()" class="form-control"> *@
+@*             <option>--Select--</option> *@
+@*         </select> *@
+@*         <span asp-validation-for="TrackType" class="text-danger"></span> *@
+@*     </div> *@
+@* *@
+@*     <button type="submit" class="btn btn-primary">Submit</button> *@
+@* </form> *@

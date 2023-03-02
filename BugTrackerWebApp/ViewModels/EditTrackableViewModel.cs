@@ -10,4 +10,5 @@ public class EditTrackableViewModel : ViewModelBase
     public Status Status { get; set; }
     public TrackType TrackType { get; set; }
     public string ProjectName { get; set; }
+    public string? LeadDevEmail { get; set; }
 }

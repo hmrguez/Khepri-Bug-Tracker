@@ -1,52 +1,146 @@
-﻿@model BugTrackerWebApp.ViewModels.TrackableListViewModel
+﻿@using BugTrackerWebApp.Data.Enum
+@model BugTrackerWebApp.ViewModels.TrackableListViewModel
 
-@{
-    var count = 1;
-}
+<div class="alert alert-success text-white font-weight-bold row mt-3 pb-0" role="alert">
+  <strong class="col-10 text-center">This is a list of every task you have for this project</strong>
+  <a asp-action="Create" asp-route-projectId="@Model.ProjectId" class="btn btn-outline-white rightMost text-center col-1">Add Task</a>
+</div>
 
-<a type="button" class="btn btn-primary btn-sm" asp-controller="Trackable" asp-action="Create" asp-route-projectId="@Model.ProjectId"><span class="bi-plus-square-fill"></span>&nbsp;Add</a>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th class="text-center">#</th>
-        <th>Name</th>
-        <th>Project</th>
-        <th>Type</th>
-        <th>Status</th>
-        <th class="text-right">Actions</th>
-        <th>Quick Check</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.Trackables)
-    {
-        <tr style="padding: 1rem">
-            <td class="text-center">@(count++)</td>
-            <td>@item.Name</td>
-            <td>@item.Project.Name</td>
-            <td>@item.TrackType</td>
-            <td>@item.Status</td>\
-            <td class="td-actions text-right">
-                <a type="button" rel="tooltip" class="btn btn-info" asp-controller="Trackable" asp-action="Detail" asp-route-id="@item.Id">
-                    <i class="material-icons">info</i>
-                </a>
-                <a type="button" rel="tooltip" class="btn btn-warning" asp-controller="Trackable" asp-action="Edit" asp-route-id="@item.Id">
-                    <i class="material-icons">edit</i>
-                </a>
-                <a type="button" rel="tooltip" class="btn btn-danger" asp-controller="Trackable" asp-action="Delete" asp-route-id="@item.Id">
-                    <i class="material-icons">delete</i>
-                </a>
+<div class="card mt-1 shadow-success">
+  <div class="table-responsive">
+    <table class="table align-items-center mb-0">
+      <thead>
+        <tr>
+          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Type</th>
+          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Created</th>
+          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lead Dev Email</th>
+          <th class="text-secondary opacity-7"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var item in Model.Trackables)
+        {
+          <tr>
+            <td>
+              <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                  <h6 class="mb-0 text-xs">@item.Name</h6>
+                </div>
+              </div>
             </td>
             <td>
-                <a type="button" rel="tooltip" class="btn btn-success" asp-controller="Trackable" asp-action="QuickCheck" asp-route-id="@item.Id">
-                    <i class="material-icons">check</i>
-                </a>
+              <p class="text-xs font-weight-bold mb-0">@item.TrackType</p>
             </td>
-        </tr>
-    }
-    </tbody>
-</table>
+            <td class="align-middle text-center text-sm">
+              @switch (item.Status)
+              {
+                case Status.Closed:
+                  <span class="text-danger text-xs">@item.Status</span>
+                  break;
+                case Status.Completed:
+                  <span class="text-success text-xs">@item.Status</span>
+                  break;
+                default:
+                  <span class="text-warning text-xs">@item.Status</span>
+                  break;
+              }
+            </td>
+            <td class="align-middle text-center text-sm">
+              <span class="text-secondary text-xs">@item.DateCreated</span>
+            </td>
+            <td class="align-middle text-center">
+              <span class="text-secondary text-xs font-weight-normal">@item.LeadEmail</span>
+            </td>
+            <td class="align-middle">
+              <a asp-action="Detail" asp-route-id="@item.Id" class="text-secondary font-weight-normal text-xs cursor-pointer link-info bi-info-lg" data-toggle="tooltip" data-original-title="Edit user">
+                Learn more
+              </a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @{ *@
+@*     var count = 1; *@
+@* } *@
+@* *@
+@* <a type="button" class="btn btn-primary btn-sm" asp-controller="Trackable" asp-action="Create" asp-route-projectId="@Model.ProjectId"><span class="bi-plus-square-fill"></span>&nbsp;Add</a> *@
+@* *@
+@* <table class="table"> *@
+@*     <thead> *@
+@*     <tr> *@
+@*         <th class="text-center">#</th> *@
+@*         <th>Name</th> *@
+@*         <th>Project</th> *@
+@*         <th>Type</th> *@
+@*         <th>Status</th> *@
+@*         <th class="text-right">Actions</th> *@
+@*         <th>Quick Check</th> *@
+@*     </tr> *@
+@*     </thead> *@
+@*     <tbody> *@
+@*     @foreach (var item in Model.Trackables) *@
+@*     { *@
+@*         <tr style="padding: 1rem"> *@
+@*             <td class="text-center">@(count++)</td> *@
+@*             <td>@item.Name</td> *@
+@*             <td>@item.Project.Name</td> *@
+@*             <td>@item.TrackType</td> *@
+@*             <td>@item.Status</td>\ *@
+@*             <td class="td-actions text-right"> *@
+@*                 <a type="button" rel="tooltip" class="btn btn-info" asp-controller="Trackable" asp-action="Detail" asp-route-id="@item.Id"> *@
+@*                     <i class="material-icons">info</i> *@
+@*                 </a> *@
+@*                 <a type="button" rel="tooltip" class="btn btn-warning" asp-controller="Trackable" asp-action="Edit" asp-route-id="@item.Id"> *@
+@*                     <i class="material-icons">edit</i> *@
+@*                 </a> *@
+@*                 <a type="button" rel="tooltip" class="btn btn-danger" asp-controller="Trackable" asp-action="Delete" asp-route-id="@item.Id"> *@
+@*                     <i class="material-icons">delete</i> *@
+@*                 </a> *@
+@*             </td> *@
+@*             <td> *@
+@*                 <a type="button" rel="tooltip" class="btn btn-success" asp-controller="Trackable" asp-action="QuickCheck" asp-route-id="@item.Id"> *@
+@*                     <i class="material-icons">check</i> *@
+@*                 </a> *@
+@*             </td> *@
+@*         </tr> *@
+@*     } *@
+@*     </tbody> *@
+@* </table> *@
 
 
 

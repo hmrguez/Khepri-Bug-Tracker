@@ -1,58 +1,34 @@
-﻿@model Trackable
+﻿@model BugTrackerWebApp.ViewModels.TrackBoxViewModel
 
-<div class="container">
-    <div class="team-single">
-        <div class="row">
-            <div class="col-lg-8 col-md-7">
-                <div class="team-single-text padding-50px-left sm-no-padding-left">
-                    <h4 class="font-size38 sm-font-size32 xs-font-size30">@Model.Name</h4>
-                    <p class="no-margin-bottom">@Model.Description</p>
-                    <div class="contact-info-section margin-40px-tb">
-                        <ul class="list-style9 no-margin">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-1 col-1">
-                                        <strong class="margin-10px-left text-orange">Status:</strong>
-                                    </div>
-                                    <div class="col-md-7 col-7">
-                                        <p>@Model.Status</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-1 col-1">
-                                        <strong class="margin-10px-left text-yellow">Type:</strong>
-                                    </div>
-                                    <div class="col-md-7 col-7">
-                                        <p>@Model.TrackType</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-1 col-1">
-                                        <strong class="margin-10px-left text-yellow">Project:</strong>
-                                    </div>
-                                    <div class="col-md-7 col-7">
-                                        <p>@Model.Project.Name</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-2 col-2">
-                                        <strong class="margin-10px-left text-yellow">Lead Dev:</strong>
-                                    </div>
-                                    <div class="col-md-7 col-7">
-                                        <p>@Model.AppUser?.Name</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-6">
+        <div class="card text-center shadow-success">
+          <h2 class="card bg-success shadow-success text-white p-3 mb-4">@Model.Trackable.Name</h2>
+          <h3 class="card-title mb-3">@Model.Trackable.Project.Name</h3>
+          <p class="text-muted">@Model.Trackable.LeadEmail</p>
+          <div class="row justify-content-center mt-2">
+            <p class="col-5 text-decoration-underline mb-0">Status</p>
+            <p class="col-5 text-decoration-underline mb-0">Date Created</p>
+          </div>
+          <div class="row justify-content-center mt-2">
+            <p class="col-5">@Model.Trackable.Status</p>
+            <p class="col-5">@Model.Trackable.DateCreated</p>
+          </div>
+          <div class="card-body">
+            <h6 class="text-secondary">@Model.Trackable.Description</h6>
+          </div>
+          <div class="card-footer text-muted">
+            <div class="row justify-content-around">
+              <a class="btn btn-outline-success col-3" asp-action="Edit" asp-route-id="@Model.Trackable.Id">Edit</a>
+              <a class="btn btn-outline-success col-3" asp-action="QuickCheck" asp-route-id="@Model.Trackable.Id">Complete</a>
+              <a class="btn btn-outline-danger col-3" asp-action="Delete" asp-route-id="@Model.Trackable.Id">Delete</a>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+</section>
