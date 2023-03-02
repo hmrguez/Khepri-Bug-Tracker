@@ -13,53 +13,91 @@
 </head>
 <body class="bg-light">
 <header>
-    
-    <nav class="navbar navbar-expand-lg bg-success p-2">
+
+    <nav class="navbar navbar-expand bg-gradient-success navbar-scroll shadow-blur">
         <div class="container">
-            <ul class="nav nav-pills nav-pills-success" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active text-dark" data-toggle="tab" asp-controller="Home" asp-action="Index" role="tablist" aria-expanded="true">
-                        Home
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" asp-controller="Project" asp-action="IndexForTrack" role="tablist" aria-expanded="false">
-                        Tasks
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" asp-controller="Project" asp-action="Index" role="tablist" aria-expanded="false">
-                        Projects
-                    </a>
-                </li>
-            </ul>
-            
-            <ul class="nav justify-content-center">
-                <li class="nav-item active">
-                    <a href="#" class="btn btn-success btn-lg disabled mb-0" role="button" aria-disabled="true">Bug Tracker</a>
-                </li>
-            </ul>
-            
-            
-            <ul class="nav justify-content-end">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item">
-                        <a type="button" asp-controller="Account" asp-action="Logout" class="btn btn-white text-success mb-0">Logout</a>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item" style="margin-right: 1rem">
-                        <a type="button" class="btn btn-white text-success mb-0" asp-controller="Account" asp-action="Login">Login</a>
+            <div class="navbar bg-white rounded-pill" id="navbarExample01">
+                <ul class="navbar-nav ms-auto text-secondary mb-2 mb-lg-0">
+                    <li class="nav-item active">
+                        <a asp-controller="Home" asp-action="Index" class="nav-link link-secondary cursor-pointer" aria-current="page">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a type="button" class="btn btn-white text-success mb-0" asp-controller="Account" asp-action="Register">Register</a>
+                        <a asp-controller="Project" asp-action="IndexForTrack" class="nav-link link-secondary cursor-pointer" aria-current="page">Tasks</a>
                     </li>
-                }
-            </ul>
+                    <li class="nav-item">
+                        <a asp-controller="Project" asp-action="Index" class="nav-link link-secondary cursor-pointer" aria-current="page">Projects</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar bg-white rounded-pill" id="navbarExample01">
+                <ul class="navbar-nav ms-auto text-secondary mb-2 mb-lg-0">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="Login" class="nav-link link-secondary cursor-pointer" aria-current="page">Sign in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="Register" class="nav-link link-secondary cursor-pointer" aria-current="page">Sign up</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="Logout" class="nav-link link-secondary cursor-pointer" aria-current="page">Log out</a>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
     </nav>
+
+
+    @* <nav class="navbar navbar-expand-lg bg-secondary p-2"> *@
+    @*     <div class="container"> *@
+    @*         <ul class="nav nav-pills nav-pills-success" role="tablist"> *@
+    @*             <li class="nav-item"> *@
+    @*                 <a class="nav-link active text-dark" data-toggle="tab" asp-controller="Home" asp-action="Index" role="tablist" aria-expanded="true"> *@
+    @*                     Home *@
+    @*                 </a> *@
+    @*             </li> *@
+    @*             <li class="nav-item"> *@
+    @*                 <a class="nav-link" data-toggle="tab" asp-controller="Project" asp-action="IndexForTrack" role="tablist" aria-expanded="false"> *@
+    @*                     Tasks *@
+    @*                 </a> *@
+    @*             </li> *@
+    @*             <li class="nav-item"> *@
+    @*                 <a class="nav-link" data-toggle="tab" asp-controller="Project" asp-action="Index" role="tablist" aria-expanded="false"> *@
+    @*                     Projects *@
+    @*                 </a> *@
+    @*             </li> *@
+    @*         </ul> *@
+    @*          *@
+    @*         <ul class="nav justify-content-center"> *@
+    @*             <li class="nav-item active"> *@
+    @*                 <a href="#" class="btn btn-success btn-lg disabled mb-0" role="button" aria-disabled="true">Bug Tracker</a> *@
+    @*             </li> *@
+    @*         </ul> *@
+    @*          *@
+    @*          *@
+    @*         <ul class="nav justify-content-end"> *@
+    @*             @if (User.Identity.IsAuthenticated) *@
+    @*             { *@
+    @*                 <li class="nav-item"> *@
+    @*                     <a type="button" asp-controller="Account" asp-action="Logout" class="btn btn-white text-success mb-0">Logout</a> *@
+    @*                 </li> *@
+    @*             } *@
+    @*             else *@
+    @*             { *@
+    @*                 <li class="nav-item" style="margin-right: 1rem"> *@
+    @*                     <a type="button" class="btn btn-white text-success mb-0" asp-controller="Account" asp-action="Login">Login</a> *@
+    @*                 </li> *@
+    @*                 <li class="nav-item"> *@
+    @*                     <a type="button" class="btn btn-white text-success mb-0" asp-controller="Account" asp-action="Register">Register</a> *@
+    @*                 </li> *@
+    @*             } *@
+    @*         </ul> *@
+    @*     </div> *@
+    @* </nav> *@
 
 
     @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"> *@
