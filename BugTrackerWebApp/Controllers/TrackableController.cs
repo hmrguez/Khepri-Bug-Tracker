@@ -120,8 +120,10 @@ public class TrackableController : Controller
             Name = trackable.Name,
             Description = trackable.Description,
             ProjectName = trackable.Project.Name,
+            ProjectId = trackable.ProjectId,
             TrackType = trackable.TrackType,
-            Status = trackable.Status
+            Status = trackable.Status,
+            LeadDevEmail = trackable.LeadEmail
         };
         return View(trackVm);
     }
@@ -149,7 +151,7 @@ public class TrackableController : Controller
                 _emailService.SendEmail(completedEmail);
             }
             
-            var project = await _projectRepository.GetByName(editTrackableViewModel.ProjectName);
+            var project = await _projectRepository.GetById(editTrackableViewModel.ProjectId);
             var trackable = new Trackable()
             {
                 Id = id,
