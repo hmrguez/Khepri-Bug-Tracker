@@ -2,13 +2,13 @@
 
 @if (TempData["Error"] != null)
 {
-    <div class="col-md-12 alert-danger">
+    <div class="col-12 alert-danger">
         <span><b>Sorry!</b> - @TempData["Error"]</span>
     </div>
 }
 
 
-<div class="page-header align-items-start min-vh-100" loading="lazy">
+<div class="mt-5 align-items-start min-vh-100" loading="lazy">
     <span class="mask opacity-6"></span>
     <div class="container my-auto">
       <div class="row">
@@ -21,26 +21,53 @@
             </div>
             <div class="card-body">
               <form asp-action="Register" role="form" class="text-start">
-                <div class="input-group input-group-outline is-valid my-3">
-                  <label asp-for="Email" class="form-label">Email</label>
-                  <input asp-for="Email" type="email" class="form-control">
-                  <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="input-group input-group-outline is-valid mb-3">
-                  <label asp-for="Password" class="form-label">Password</label>
-                  <input asp-for="Password" type="password" class="form-control">
-                  <span asp-validation-for="Password" class="text-danger"></span>
-                  
-                </div>
-                <div class="input-group input-group-outline is-valid mb-3">
-                  <label asp-for="ConfirmedPassword" class="form-label">Confirm Password</label>
-                  <input asp-for="ConfirmedPassword" type="password" class="form-control">
-                  <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
-                </div>
-                <div class="form-check form-switch d-flex align-items-center mb-3">
-                  <input class="form-check-input" type="checkbox" id="rememberMe" checked>
-                  <label class="form-check-label mb-0 ms-3" for="rememberMe">Remember me</label>
-                </div>
+                @if (TempData["Error"] == "This email address is already taken")
+                {
+                  <div class="input-group input-group-outline is-invalid my-3">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-control">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                  </div>  
+                }
+                else
+                {
+                  <div class="input-group input-group-outline is-valid my-3">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-control">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                  </div>
+                }
+                
+                
+                @if (TempData["Error"] == "Password and confirmed password do not match" || TempData["Error"] == "Unsecure password: use upper and lower case letters, numbers and non-alphanumeric symbols for better security")
+                {
+                  <div class="input-group input-group-outline is-invalid mb-3">
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <input asp-for="Password" type="password" class="form-control">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                  </div>
+                
+                  <div class="input-group input-group-outline is-invalid mb-3">
+                    <label asp-for="ConfirmedPassword" class="form-label">Confirm Password</label>
+                    <input asp-for="ConfirmedPassword" type="password" class="form-control">
+                    <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+                  </div>
+                }
+                else
+                {
+                  <div class="input-group input-group-outline is-valid mb-3">
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <input asp-for="Password" type="password" class="form-control">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                  </div>
+                
+                  <div class="input-group input-group-outline is-valid mb-3">
+                    <label asp-for="ConfirmedPassword" class="form-label">Confirm Password</label>
+                    <input asp-for="ConfirmedPassword" type="password" class="form-control">
+                    <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+                  </div>
+                }
+                
                 <div class="text-center">
                   <button type="submit" class="btn bg-gradient-success w-100 my-4 mb-2">Sign up</button>
                 </div>
@@ -51,42 +78,3 @@
       </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@* <form asp-action="Register"> *@
-@*     <div asp-validation-summary="ModelOnly" class="text-danger"></div> *@
-@*     <div class="form-group"> *@
-@*         <label asp-for="Email" class="control-label"></label> *@
-@*         <input asp-for="Email" class="form-control"/> *@
-@*         <span asp-validation-for="Email" class="text-danger"></span> *@
-@*     </div> *@
-@*     <div class="form-group"> *@
-@*         <label asp-for="Password" class="control-label"></label> *@
-@*         <input asp-for="Password" class="form-control"/> *@
-@*         <span asp-validation-for="Password" class="text-danger"></span> *@
-@*     </div> *@
-@*     <div class="form-group"> *@
-@*         <label asp-for="ConfirmedPassword" class="control-label"></label> *@
-@*         <input asp-for="ConfirmedPassword" class="form-control"/> *@
-@*         <span asp-validation-for="ConfirmedPassword" class="text-danger"></span> *@
-@*     </div> *@
-@*     <button type="submit" class="btn btn-primary">Submit</button> *@
-@* </form> *@

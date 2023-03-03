@@ -1,8 +1,10 @@
 ﻿@model BugTrackerWebApp.ViewModels.EnumerableViewModel<Project>
 
-<div class="alert alert-success text-white font-weight-bold row mt-3 pb-0" role="alert">
-  <strong class="col-10 text-center">This is a list of every project you have</strong>
-  <a asp-action="Create" class="btn btn-outline-white rightMost text-center col-1">Add project</a>
+<div class="row">
+  <div class="alert alert-success text-white font-weight-bold col-10 mt-3 pb-0" role="alert">
+    <strong class="text-center">This is a list of every project you have</strong>
+  </div>
+  <a asp-action="Create" class="btn btn-success mt-3 text-center col-1 ms-2">Add project</a>
 </div>
 
 <div class="card mt-2 shadow-success">

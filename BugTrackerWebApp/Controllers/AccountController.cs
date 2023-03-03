@@ -66,10 +66,18 @@ public class AccountController : Controller
 
         if (user != null)
         {
-            TempData["Error"] = "This email is already taken please use another one";
+            TempData["Error"] = "This email address is already taken";
+            registerViewModel.Email = null;
             return View(registerViewModel);
         }
 
+        if (registerViewModel.Password != registerViewModel.ConfirmedPassword)
+        {
+            TempData["Error"] = "Password and confirmed password do not match";
+            registerViewModel.Password = registerViewModel.ConfirmedPassword = null;
+            return View(registerViewModel);
+        }
+        
         var newUser = new AppUser()
         {
             Email = registerViewModel.Email,
@@ -83,7 +91,7 @@ public class AccountController : Controller
             return RedirectToAction("Login");
         }
         
-        TempData["Error"] = "Password wrong";
+        TempData["Error"] = "Unsecure password: use upper and lower case letters, numbers and non-alphanumeric symbols for better security";
         return View(registerViewModel);
     }
 
